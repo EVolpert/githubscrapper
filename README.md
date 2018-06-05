@@ -25,6 +25,7 @@ To exit the virtual env just type ```deactivate```
 ## Example output
 This is what you will get by using this project:
 
+```
 Projeto: EVolpert/githubscrapper
 Dados do Projeto:
 
@@ -58,3 +59,4 @@ Dados do Projeto:
   "total_bytes": 5179,
   "total_lines": 224
 }
+```
