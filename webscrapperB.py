@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import json
 
 
+# This function receives the information header from a file page and the position of the byte size and Unit
+# We need the position due to github having different headers for specific file types such as .enc
 def byte_conversion(position_value, position_unit, file_info_contents):
     if (file_info_contents[position_unit] == 'GB'):
         number_of_bytes = round(float(file_info_contents[position_value]) * 1000000000, 3)
@@ -16,6 +18,7 @@ def byte_conversion(position_value, position_unit, file_info_contents):
     return number_of_bytes
 
 
+# This functions extracts from a file page its relevant informations and returns it as a dictionary
 def get_lines_and_bytes(url):
     page = requests.get(url)
     soup = BeautifulSoup(page.text, 'html.parser')
@@ -37,12 +40,14 @@ def get_lines_and_bytes(url):
 
     file_name = soup.find('strong', class_='final-path').get_text()
     file_extension = file_name.split('.')[-1:][0]
-    file_path = soup.find(class_='breadcrumb').get_text().strip('\n')
 
-    return {'lines': int(number_of_lines), 'bytes': int(number_of_bytes), 'extension': file_extension, 'file_path': file_path, 'file_name': file_name}
+    return {'lines': int(number_of_lines), 'bytes': int(number_of_bytes), 'extension': file_extension, 'file_name': file_name}
 
 
-def iterate_over_director_tree(url):
+# This functions iterates over the file tree on github
+# If it's a file link it passes the url to the get_lines_and_bytes function and apppend that result to a list
+# If i'ts a folder link it recursive call's itself to initiate a new crapping for the files on that folder
+def iterate_over_director_tree(url, file_name, level=1):
     page = requests.get(url)
     soup = BeautifulSoup(page.text, 'html.parser')
 
@@ -60,25 +65,23 @@ def iterate_over_director_tree(url):
     for file in files_list:
         if (file.find('svg').get('class')[1] == 'octicon-file'):
             url = 'https://github.com/' + file.find('a', class_='js-navigation-open').get('href')
-            files.append(get_lines_and_bytes(url))
+            file_info = get_lines_and_bytes(url)
+            files.append(file_info)
+            with open(file_name, 'a') as outfile:
+                outfile.write('|_'*level + file_info['file_name'] + '(' + str(file_info['lines']) + ' lines)\n')
+                outfile.close()
         else:
             url = 'https://github.com/' + file.find('a', class_='js-navigation-open').get('href')
-            files.extend(iterate_over_director_tree(url))
+            folder_name = url.split('/')
+            with open(file_name, 'a') as outfile:
+                outfile.write('|_'*level + '[' + folder_name[-1] + ']\n')
+                outfile.close()
+            files.extend(iterate_over_director_tree(url, file_name, level+1))
 
     return files
 
 
-def retreieve_file_details_list(files, repository):
-    file_details = []
-
-    for file in files:
-        file_details.append({'file_name': file['file_name'], 'lines': file['lines'], 'bytes': file['bytes'], 'file_path': file['file_path']})
-
-    ordered_details = sorted(file_details, key=lambda x: x['file_path'])
-
-    return ordered_details
-
-
+# This functions aggregate the file size and lines for a given extension as well as the total bytes and lines of the project
 def aggregate_file_data(files):
     bytes_and_lines = {}
     total_bytes = 0
@@ -104,15 +107,17 @@ def aggregate_file_data(files):
 def report_creator(url, repository):
     project = repository.split('/')[-1:][0]
     file_name = '{}.txt'.format(project)
-    files = iterate_over_director_tree(url)
-    aggregated_data = aggregate_file_data(files)
-    directory_tree = retreieve_file_details_list(files, repository)
 
-    with open(file_name, 'w+') as outfile:
-        outfile.write('Projeto: {}\n\nProject Data:\n\n'.format(repository))
+    report_file = open(file_name, 'w+')
+    report_file.write('Project: {}\n\nDirectory Tee:\n[{}]\n'.format(repository, project))
+    report_file.close()
+
+    files = iterate_over_director_tree(url, file_name)
+    aggregated_data = aggregate_file_data(files)
+
+    with open(file_name, 'a') as outfile:
+        outfile.write('\nProject Data:\n'.format(repository))
         json.dump(aggregated_data, outfile, indent=2, sort_keys=True)
-        outfile.write('\n\nDirectory Tree\n\n'.format(repository))
-        json.dump(directory_tree, outfile, indent=2, sort_keys=True)
         outfile.close()
 
 
