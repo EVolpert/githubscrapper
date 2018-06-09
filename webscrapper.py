@@ -37,8 +37,9 @@ def get_lines_and_bytes(url):
 
     file_name = soup.find('strong', class_='final-path').get_text()
     file_extension = file_name.split('.')[-1:][0]
+    file_path = soup.find(class_='breadcrumb').get_text().strip('\n')
 
-    return {'lines': int(number_of_lines), 'bytes': int(number_of_bytes), 'extension': file_extension}
+    return {'lines': int(number_of_lines), 'bytes': int(number_of_bytes), 'extension': file_extension, 'file_path': file_path, 'file_name': file_name}
 
 
 def iterate_over_director_tree(url):
@@ -47,14 +48,14 @@ def iterate_over_director_tree(url):
 
     files = []
 
-    file_tree = soup.find(class_='files')
+    file_tree_table = soup.find(class_='files')
 
-    have_up_tree = file_tree.find(class_='up-tree')
+    have_up_tree = file_tree_table.find(class_='up-tree')
 
     if have_up_tree:
         have_up_tree.decompose()
 
-    files_list = file_tree.find_all(class_='js-navigation-item')
+    files_list = file_tree_table.find_all(class_='js-navigation-item')
 
     for file in files_list:
         if (file.find('svg').get('class')[1] == 'octicon-file'):
@@ -65,6 +66,17 @@ def iterate_over_director_tree(url):
             files.extend(iterate_over_director_tree(url))
 
     return files
+
+
+def retreieve_file_details_list(files, repository):
+    file_details = []
+
+    for file in files:
+        file_details.append({'file_name': file['file_name'], 'lines': file['lines'], 'bytes': file['bytes'], 'file_path': file['file_path']})
+
+    ordered_details = sorted(file_details, key=lambda x: x['file_path'])
+
+    return ordered_details
 
 
 def aggregate_file_data(files):
@@ -90,18 +102,17 @@ def aggregate_file_data(files):
 
 
 def report_creator(url, repository):
+    project = repository.split('/')[-1:][0]
+    file_name = '{}.txt'.format(project)
     files = iterate_over_director_tree(url)
     aggregated_data = aggregate_file_data(files)
-    project = repository.split('/')[-1:][0]
+    directory_tree = retreieve_file_details_list(files, repository)
 
-    file_name = '{}.txt'.format(project)
-
-    data_file = open(file_name, "w+")
-    data_file.write('Projeto: {}\nDados do Projeto:\n\n'.format(repository))
-    data_file.close()
-
-    with open(file_name, 'a') as outfile:
+    with open(file_name, 'w+') as outfile:
+        outfile.write('Projeto: {}\n\nProject Data:\n\n'.format(repository))
         json.dump(aggregated_data, outfile, indent=2, sort_keys=True)
+        outfile.write('\n\nDirectory Tree\n\n'.format(repository))
+        json.dump(directory_tree, outfile, indent=2, sort_keys=True)
         outfile.close()
 
 
