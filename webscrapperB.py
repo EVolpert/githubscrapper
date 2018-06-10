@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+from multiprocessing import Pool
 
 
 # This function receives the information header from a file page and the position of the byte size and Unit
@@ -122,12 +123,16 @@ def report_creator(url, repository):
 
 
 def webscrapper():
+    function_arguments = []
     with open('repositories.txt', 'r') as f:
         repositories = [line.strip() for line in f]
 
     for repository in repositories:
         url = 'https://github.com/' + repository
-        report_creator(url, repository)
+        function_arguments.append((url, repository))
+
+    with Pool(5) as pool:
+        pool.starmap(report_creator, function_arguments)
 
 
 webscrapper()
