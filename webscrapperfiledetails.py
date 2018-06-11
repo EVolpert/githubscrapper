@@ -109,8 +109,6 @@ def iterate_over_director_tree(url):
             url = 'https://github.com/' + file.find('a', class_='js-navigation-open').get('href')
             files.extend(iterate_over_director_tree(url))
 
-    print(files)
-
     return files
 
 
