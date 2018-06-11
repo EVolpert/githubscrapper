@@ -28,11 +28,3 @@ The main difference between the two versions is how they deal with file location
 The webscrapperdirectorytree writes on the file a traditional directory tree, but violates SOLID by doing this while creates the file list on the iterate_over_director_tree function. This is not a perfect solution but gives a nice visual way to tell the file location in the project.
 
 The webscrapperfiledetails creates a list of dictionaries that is ordered by their file path. This focus on the where a specific file is on the project, since they are dictionaries this is also good if you need to use the information for another code, and since they are sorted by their file path it organically groups files in the same folder closer together.
-
-
-## Example output
-This is what you will get by using this project A version:
-```A Output```
-
-This is what you will get by using this project B version:
-```B Output```
