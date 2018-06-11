@@ -1,0 +1,83 @@
+Project: EVolpert/githubscrapper
+File Details
+[
+  {
+    "bytes": 1100.0,
+    "file_name": ".gitignore",
+    "file_path": "githubscrapper/.gitignore",
+    "lines": 96
+  },
+  {
+    "bytes": 1910.0,
+    "file_name": "README.md",
+    "file_path": "githubscrapper/README.md",
+    "lines": 39
+  },
+  {
+    "bytes": 0.0,
+    "file_name": "__init__.py",
+    "file_path": "githubscrapper/__init__.py",
+    "lines": 0
+  },
+  {
+    "bytes": 203.0,
+    "file_name": "requirements.txt",
+    "file_path": "githubscrapper/requirements.txt",
+    "lines": 14
+  },
+  {
+    "bytes": 0.0,
+    "file_name": "__init__.py",
+    "file_path": "githubscrapper/tests/__init__.py",
+    "lines": 0
+  },
+  {
+    "bytes": 5990.0,
+    "file_name": "test_suite.py",
+    "file_path": "githubscrapper/tests/test_suite.py",
+    "lines": 135
+  },
+  {
+    "bytes": 7900.0,
+    "file_name": "webscrapperdirectorytree.py",
+    "file_path": "githubscrapper/webscrapperdirectorytree.py",
+    "lines": 214
+  },
+  {
+    "bytes": 8190.0,
+    "file_name": "webscrapperfiledetails.py",
+    "file_path": "githubscrapper/webscrapperfiledetails.py",
+    "lines": 229
+  }
+]
+Project Data
+{
+  "aggregated_data": {
+    "gitignore": {
+      "bytes": 1100.0,
+      "bytes_percentage": 4.35,
+      "lines": 96,
+      "lines_percentage": 13.2
+    },
+    "md": {
+      "bytes": 1910.0,
+      "bytes_percentage": 7.55,
+      "lines": 39,
+      "lines_percentage": 5.36
+    },
+    "py": {
+      "bytes": 22080.0,
+      "bytes_percentage": 87.3,
+      "lines": 578,
+      "lines_percentage": 79.5
+    },
+    "txt": {
+      "bytes": 203.0,
+      "bytes_percentage": 0.8,
+      "lines": 14,
+      "lines_percentage": 1.93
+    }
+  },
+  "total_bytes": 25293.0,
+  "total_lines": 727
+}
