@@ -51,14 +51,14 @@ class TestSuite(object):
 
     def test_iterate_over_director_tree(self):
         url = "https://github.com/EVolpert/githubscrapper"
-        expected_result = [{'file_path': 'githubscrapper/tests/__init__.py', 'extension': 'py', 'bytes': 0.0, 'file_name': '__init__.py', 'lines': 0}, {'file_path': 'githubscrapper/tests/test_suite.py', 'extension': 'py', 'bytes': 5990.0, 'file_name': 'test_suite.py', 'lines': 135}, {'file_path': 'githubscrapper/.gitignore', 'extension': 'gitignore', 'bytes': 1100.0, 'file_name': '.gitignore', 'lines': 96}, {'file_path': 'githubscrapper/README.md', 'extension': 'md', 'bytes': 1910.0, 'file_name': 'README.md', 'lines': 39}, {'file_path': 'githubscrapper/__init__.py', 'extension': 'py', 'bytes': 0.0, 'file_name': '__init__.py', 'lines': 0}, {'file_path': 'githubscrapper/requirements.txt', 'extension': 'txt', 'bytes': 203.0, 'file_name': 'requirements.txt', 'lines': 14}, {'file_path': 'githubscrapper/webscrapperdirectorytree.py', 'extension': 'py', 'bytes': 7900.0, 'file_name': 'webscrapperdirectorytree.py', 'lines': 214}, {'file_path': 'githubscrapper/webscrapperfiledetails.py', 'extension': 'py', 'bytes': 8190.0, 'file_name': 'webscrapperfiledetails.py', 'lines': 229}]
+        expected_result = [{'lines': 0, 'file_path': 'githubscrapper/tests/__init__.py', 'extension': 'py', 'bytes': 0.0, 'file_name': '__init__.py'}, {'lines': 155, 'file_path': 'githubscrapper/tests/test_suite.py', 'extension': 'py', 'bytes': 7790.0, 'file_name': 'test_suite.py'}, {'lines': 96, 'file_path': 'githubscrapper/.gitignore', 'extension': 'gitignore', 'bytes': 1100.0, 'file_name': '.gitignore'}, {'lines': 31, 'file_path': 'githubscrapper/README.md', 'extension': 'md', 'bytes': 1750.0, 'file_name': 'README.md'}, {'lines': 83, 'file_path': 'githubscrapper/githubscrapper.txt', 'extension': 'txt', 'bytes': 1680.0, 'file_name': 'githubscrapper.txt'}, {'lines': 14, 'file_path': 'githubscrapper/requirements.txt', 'extension': 'txt', 'bytes': 203.0, 'file_name': 'requirements.txt'}, {'lines': 214, 'file_path': 'githubscrapper/webscrapperdirectorytree.py', 'extension': 'py', 'bytes': 7900.0, 'file_name': 'webscrapperdirectorytree.py'}, {'lines': 229, 'file_path': 'githubscrapper/webscrapperfiledetails.py', 'extension': 'py', 'bytes': 8190.0, 'file_name': 'webscrapperfiledetails.py'}]
 
         files = webscrapperfiledetails.iterate_over_director_tree(url)
 
         assert expected_result == files
 
     def test_create_file_details_list(self):
-        files = [{'file_path': 'githubscrapper/tests/__init__.py', 'extension': 'py', 'bytes': 0.0, 'file_name': '__init__.py', 'lines': 0}, {'file_path': 'githubscrapper/tests/test_suite.py', 'extension': 'py', 'bytes': 5990.0, 'file_name': 'test_suite.py', 'lines': 135}, {'file_path': 'githubscrapper/.gitignore', 'extension': 'gitignore', 'bytes': 1100.0, 'file_name': '.gitignore', 'lines': 96}, {'file_path': 'githubscrapper/README.md', 'extension': 'md', 'bytes': 1910.0, 'file_name': 'README.md', 'lines': 39}, {'file_path': 'githubscrapper/__init__.py', 'extension': 'py', 'bytes': 0.0, 'file_name': '__init__.py', 'lines': 0}, {'file_path': 'githubscrapper/requirements.txt', 'extension': 'txt', 'bytes': 203.0, 'file_name': 'requirements.txt', 'lines': 14}, {'file_path': 'githubscrapper/webscrapperdirectorytree.py', 'extension': 'py', 'bytes': 7900.0, 'file_name': 'webscrapperdirectorytree.py', 'lines': 214}, {'file_path': 'githubscrapper/webscrapperfiledetails.py', 'extension': 'py', 'bytes': 8190.0, 'file_name': 'webscrapperfiledetails.py', 'lines': 229}]
+        files = [{'lines': 0, 'file_path': 'githubscrapper/tests/__init__.py', 'extension': 'py', 'bytes': 0.0, 'file_name': '__init__.py'}, {'lines': 155, 'file_path': 'githubscrapper/tests/test_suite.py', 'extension': 'py', 'bytes': 7790.0, 'file_name': 'test_suite.py'}, {'lines': 96, 'file_path': 'githubscrapper/.gitignore', 'extension': 'gitignore', 'bytes': 1100.0, 'file_name': '.gitignore'}, {'lines': 31, 'file_path': 'githubscrapper/README.md', 'extension': 'md', 'bytes': 1750.0, 'file_name': 'README.md'}, {'lines': 83, 'file_path': 'githubscrapper/githubscrapper.txt', 'extension': 'txt', 'bytes': 1680.0, 'file_name': 'githubscrapper.txt'}, {'lines': 14, 'file_path': 'githubscrapper/requirements.txt', 'extension': 'txt', 'bytes': 203.0, 'file_name': 'requirements.txt'}, {'lines': 214, 'file_path': 'githubscrapper/webscrapperdirectorytree.py', 'extension': 'py', 'bytes': 7900.0, 'file_name': 'webscrapperdirectorytree.py'}, {'lines': 229, 'file_path': 'githubscrapper/webscrapperfiledetails.py', 'extension': 'py', 'bytes': 8190.0, 'file_name': 'webscrapperfiledetails.py'}]
 
         expected_result = [
           {
@@ -68,16 +68,16 @@ class TestSuite(object):
             "lines": 96
           },
           {
-            "bytes": 1910.0,
+            "bytes": 1750.0,
             "file_name": "README.md",
             "file_path": "githubscrapper/README.md",
-            "lines": 39
+            "lines": 31
           },
           {
-            "bytes": 0.0,
-            "file_name": "__init__.py",
-            "file_path": "githubscrapper/__init__.py",
-            "lines": 0
+            "bytes": 1680.0,
+            "file_name": "githubscrapper.txt",
+            "file_path": "githubscrapper/githubscrapper.txt",
+            "lines": 83
           },
           {
             "bytes": 203.0,
@@ -92,10 +92,10 @@ class TestSuite(object):
             "lines": 0
           },
           {
-            "bytes": 5990.0,
+            "bytes": 7790.0,
             "file_name": "test_suite.py",
             "file_path": "githubscrapper/tests/test_suite.py",
-            "lines": 135
+            "lines": 155
           },
           {
             "bytes": 7900.0,
@@ -116,37 +116,37 @@ class TestSuite(object):
         assert expected_result == result
 
     def test_aggregated_data(self):
-        files = [{'file_path': 'githubscrapper/tests/__init__.py', 'extension': 'py', 'bytes': 0.0, 'file_name': '__init__.py', 'lines': 0}, {'file_path': 'githubscrapper/tests/test_suite.py', 'extension': 'py', 'bytes': 5990.0, 'file_name': 'test_suite.py', 'lines': 135}, {'file_path': 'githubscrapper/.gitignore', 'extension': 'gitignore', 'bytes': 1100.0, 'file_name': '.gitignore', 'lines': 96}, {'file_path': 'githubscrapper/README.md', 'extension': 'md', 'bytes': 1910.0, 'file_name': 'README.md', 'lines': 39}, {'file_path': 'githubscrapper/__init__.py', 'extension': 'py', 'bytes': 0.0, 'file_name': '__init__.py', 'lines': 0}, {'file_path': 'githubscrapper/requirements.txt', 'extension': 'txt', 'bytes': 203.0, 'file_name': 'requirements.txt', 'lines': 14}, {'file_path': 'githubscrapper/webscrapperdirectorytree.py', 'extension': 'py', 'bytes': 7900.0, 'file_name': 'webscrapperdirectorytree.py', 'lines': 214}, {'file_path': 'githubscrapper/webscrapperfiledetails.py', 'extension': 'py', 'bytes': 8190.0, 'file_name': 'webscrapperfiledetails.py', 'lines': 229}]
+        files = [{'lines': 0, 'file_path': 'githubscrapper/tests/__init__.py', 'extension': 'py', 'bytes': 0.0, 'file_name': '__init__.py'}, {'lines': 155, 'file_path': 'githubscrapper/tests/test_suite.py', 'extension': 'py', 'bytes': 7790.0, 'file_name': 'test_suite.py'}, {'lines': 96, 'file_path': 'githubscrapper/.gitignore', 'extension': 'gitignore', 'bytes': 1100.0, 'file_name': '.gitignore'}, {'lines': 31, 'file_path': 'githubscrapper/README.md', 'extension': 'md', 'bytes': 1750.0, 'file_name': 'README.md'}, {'lines': 83, 'file_path': 'githubscrapper/githubscrapper.txt', 'extension': 'txt', 'bytes': 1680.0, 'file_name': 'githubscrapper.txt'}, {'lines': 14, 'file_path': 'githubscrapper/requirements.txt', 'extension': 'txt', 'bytes': 203.0, 'file_name': 'requirements.txt'}, {'lines': 214, 'file_path': 'githubscrapper/webscrapperdirectorytree.py', 'extension': 'py', 'bytes': 7900.0, 'file_name': 'webscrapperdirectorytree.py'}, {'lines': 229, 'file_path': 'githubscrapper/webscrapperfiledetails.py', 'extension': 'py', 'bytes': 8190.0, 'file_name': 'webscrapperfiledetails.py'}]
 
         expected_result = {
           "aggregated_data": {
             "gitignore": {
               "bytes": 1100.0,
-              "bytes_percentage": 4.35,
+              "bytes_percentage": 3.84,
               "lines": 96,
-              "lines_percentage": 13.2
+              "lines_percentage": 11.68
             },
             "md": {
-              "bytes": 1910.0,
-              "bytes_percentage": 7.55,
-              "lines": 39,
-              "lines_percentage": 5.36
+              "bytes": 1750.0,
+              "bytes_percentage": 6.12,
+              "lines": 31,
+              "lines_percentage": 3.77
             },
             "py": {
-              "bytes": 22080.0,
-              "bytes_percentage": 87.3,
-              "lines": 578,
-              "lines_percentage": 79.5
+              "bytes": 23880.0,
+              "bytes_percentage": 83.46,
+              "lines": 598,
+              "lines_percentage": 72.75
             },
             "txt": {
-              "bytes": 203.0,
-              "bytes_percentage": 0.8,
-              "lines": 14,
-              "lines_percentage": 1.93
+              "bytes": 1883.0,
+              "bytes_percentage": 6.58,
+              "lines": 97,
+              "lines_percentage": 11.8
             }
           },
-          "total_bytes": 25293.0,
-          "total_lines": 727
+          "total_bytes": 28613.0,
+          "total_lines": 822
         }
 
         result = webscrapperfiledetails.aggregate_file_data(files)
